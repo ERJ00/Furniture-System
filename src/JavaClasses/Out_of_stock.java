@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -32,7 +33,7 @@ public class Out_of_stock extends javax.swing.JFrame {
     }
     
     private void retrieve() {
-    String filePath = "C:\\Users\\user\\Desktop\\System Project\\Java\\Furniture_System\\src\\Database\\products.txt"; // Replace with the actual file path
+    String filePath = "C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\products.txt"; // Replace with the actual file path
 
     try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
         String line;
@@ -67,7 +68,7 @@ public class Out_of_stock extends javax.swing.JFrame {
         table.setDefaultRenderer(String.class, centerRenderer);
         
         TableColumnModel colModel = table.getColumnModel();
-        colModel.getColumn(0).setPreferredWidth(50); 
+        colModel.getColumn(0).setPreferredWidth(100); 
         colModel.getColumn(1).setPreferredWidth(120);
         colModel.getColumn(2).setPreferredWidth(120);
         colModel.getColumn(3).setPreferredWidth(70);
@@ -102,7 +103,7 @@ public class Out_of_stock extends javax.swing.JFrame {
         jScrollPane1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         table.setBackground(new java.awt.Color(204, 204, 204));
-        table.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        table.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -112,10 +113,17 @@ public class Out_of_stock extends javax.swing.JFrame {
             }
         ));
         table.setGridColor(new java.awt.Color(0, 0, 0));
+        table.setRowHeight(20);
+        table.setRowSelectionAllowed(false);
         table.setSelectionBackground(new java.awt.Color(102, 102, 102));
         table.setShowGrid(true);
         table.getTableHeader().setResizingAllowed(false);
         table.getTableHeader().setReorderingAllowed(false);
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 70, 746, 390));
@@ -146,6 +154,12 @@ public class Out_of_stock extends javax.swing.JFrame {
         main.show();
         dispose();
     }//GEN-LAST:event_backButtonMouseClicked
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        if(table.isEditing() == false){
+           JOptionPane.showMessageDialog(null,"You can not edit this Table.");
+        }
+    }//GEN-LAST:event_tableMouseClicked
 
     /**
      * @param args the command line arguments

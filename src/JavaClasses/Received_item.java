@@ -43,7 +43,7 @@ public class Received_item extends javax.swing.JFrame {
     }
     
     private void retrieve() {
-    String filePath = "C:\\Users\\user\\Desktop\\System Project\\Java\\Furniture_System\\src\\Database\\products.txt"; // Replace with the actual file path
+    String filePath = "C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\products.txt"; // Replace with the actual file path
 
     try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
         String line;
@@ -68,33 +68,18 @@ public class Received_item extends javax.swing.JFrame {
         }
     }
     
-    public void save(Product data){
-        BufferedWriter buffWriter = null;
-
-//        try{
-//            buffWriter = new BufferedWriter(new FileWriter(new File("C:\\Users\\user\\Desktop\\System Project\\Java\\Furniture_System\\src\\Database\\received_produc_history.txt"),true));
-//            buffWriter.write(data.getID() + " / " + data.getPrice() + " / " + data.getQuantity() + " / " + data.getProductName()+ " / " + data.getBrand() + " / " + data.getDescription() + " / " + data.getCategory() + " / " + data.getSupplier() + " / " + data.getDate() + " / \n");
-//            buffWriter.close();
-//        }catch(FileNotFoundException e){
-//        System.out.println("File not found!");
-//        
-//        }catch (IOException ex) {
-//            Logger.getLogger(Received_item.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        
-        try (FileWriter f = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Java\\Furniture_System\\src\\Database\\received_product_history.txt", true);
+    public void save(Product data) {
+        try (FileWriter f = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\received_product_history.txt", true);
                 BufferedWriter b = new BufferedWriter(f);
                 PrintWriter p = new PrintWriter(b);) {
-
-            p.println(data.getID() + " / " + data.getPrice() + " / " + data.getQuantity() + " / " + data.getProductName()+ " / " + data.getBrand() + " / " + data.getDescription() + " / " + data.getCategory() + " / " + data.getSupplier() + " / " + data.getDate() + " / ");
-
+            p.println(data.getID() + " / " + data.getPrice() + " / " + data.getQuantity() + " / " + data.getProductName() + " / " + data.getBrand() + " / " + data.getDescription() + " / " + data.getCategory() + " / " + data.getSupplier() + " / " + data.getDate() + " / ");
         } catch (IOException i) {
             i.printStackTrace();
         }
-        
+
         try {
-            FileWriter myWriter = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Java\\Furniture_System\\src\\Database\\products.txt");
-            
+            FileWriter myWriter = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\products.txt", false);
+
             for (Product product : item) {
                 myWriter.write(Integer.toString(product.getID()) + " / ");
                 myWriter.write(Integer.toString(product.getPrice()) + " / ");
@@ -112,6 +97,18 @@ public class Received_item extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    
+    private int check_product(String name, String brand, String category){
+        System.out.println("name : " + name);
+        System.out.println("Brand : " + brand);
+        for(Product product : item){
+            if(product.getProductName().equals(name) && product.getBrand().equals(brand) && product.getCategory().equals(category)){
+                return product.getID();
+            }
+        }
+        return 0;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -272,47 +269,72 @@ public class Received_item extends javax.swing.JFrame {
     }//GEN-LAST:event_add_buttonMouseExited
 
     private void add_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_buttonActionPerformed
-        Product data = new  Product();
+    String productName = txt_product_name.getText().toUpperCase().trim();
+    String brand = txt_brand.getText().toUpperCase().trim();
+    String priceText = txt_price.getText().trim();
+    String quantityText = txt_quantity.getText().trim();
+    String description = txt_description.getText().trim();
+    String supplier = txt_supplier.getText().trim();
+    String category = txt_category.getText().toUpperCase().trim();
+
+    if (productName.isEmpty() || brand.isEmpty() || priceText.isEmpty() || quantityText.isEmpty() ||
+            description.isEmpty() || supplier.isEmpty() || category.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Please fill up all needed data.");
+        return;
+    }
+
+    int price = Integer.parseInt(priceText);
+    int quantity = Integer.parseInt(quantityText);
+
+    Product data = new Product();
+    data.setProductName(productName);
+    data.setBrand(brand);
+    data.setPrice(price);
+    data.setQuantity(quantity);
+    data.setDescription(description);
+    data.setSupplier(supplier);
+    data.setCategory(category);
+    data.setDate(String.valueOf(java.time.LocalDate.now()));
+
+    int index = check_product(data.getProductName(), data.getBrand(), data.getCategory());
+
+    if (index != 0) {
+        data.setID(index);
+
+        for (Product product : item) {
+            if (product.getID() == index) {
+                product.setQuantity(product.getQuantity() + quantity);
+                product.setSupplier(data.getSupplier());
+                product.setDate(data.getDate());
+                product.setPrice(data.getPrice());
+                System.out.println("Update " + index);
+                break;
+            }
+        }
+    } else {
         Random rand = new Random();
         int ID;
-        do{
+
+        do {
             ID = rand.nextInt(11111, 99999);
-        }while(check_ID(ID) == true);
+        } while (check_ID(ID));
+
         data.setID(ID);
-        data.setProductName(txt_product_name.getText());
-        data.setBrand(txt_brand.getText().toUpperCase());
-        data.setPrice(Integer.parseInt(txt_price.getText()));
-        data.setQuantity(Integer.parseInt(txt_quantity.getText()));
-        data.setDescription(txt_description.getText());
-        data.setSupplier(txt_supplier.getText());
-        data.setCategory(txt_category.getText().toUpperCase());
-        data.setDate(String.valueOf(java.time.LocalDate.now()));
+        System.out.println("New " + index);
+        add_item(data);
+    }
 
-        try {
-            if ((txt_product_name.getText().equals("")) || (txt_brand.getText().equals("")) ||
-                (txt_price.getText().equals("")) || (txt_quantity.getText().equals("")) ||
-                (txt_description.getText().equals("")) || (txt_supplier.getText().equals("")) ||
-                (txt_category.getText().equals("")) ){
-                JOptionPane.showMessageDialog(null,"Please fill up all needed data.");
-            }
-            else {
-                Display_info info = new Display_info(data);
-                txt_product_name.setText("");
-                txt_brand.setText("");
-                txt_price.setText("");
-                txt_quantity.setText("");
-                txt_description.setText("");
-                txt_supplier.setText("");
-                txt_category.setText("");
-                add_item(data);
-                save(data);
-                info.show();
-            }
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-
+    Display_info info = new Display_info(data);
+    txt_product_name.setText("");
+    txt_brand.setText("");
+    txt_price.setText("");
+    txt_quantity.setText("");
+    txt_description.setText("");
+    txt_supplier.setText("");
+    txt_category.setText("");
+    save(data);
+    info.show();
+        
     }//GEN-LAST:event_add_buttonActionPerformed
 
     private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseClicked
