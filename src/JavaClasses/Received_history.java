@@ -79,10 +79,8 @@ public class Received_history extends javax.swing.JFrame {
 
         for (Product product : item) {
             
-            if (product.getQuantity() > 0){
-                Object[] temp = {Integer.toString(product.getID()), product.getProductName(), product.getBrand(), Integer.toString(product.getPrice()), product.getCategory(), product.getSupplier(), Integer.toString(product.getQuantity()), product.getDate()};
-                model.addRow(temp);
-            }
+            Object[] temp = {Integer.toString(product.getID()), product.getProductName(), product.getBrand(), Integer.toString(product.getPrice()), product.getCategory(), product.getSupplier(), Integer.toString(product.getQuantity()), product.getDate()};
+            model.addRow(temp);
         }
     }
     

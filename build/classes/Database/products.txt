@@ -1,3 +1,4 @@
 17303 / 1500 / 10 / TABLE / BRAND T / Wooden Table / DINING ROOM / Hood Inc. / 2023-05-23 / 
 66611 / 100 / 35 / BED / BRAND B / Water Bed / BEDROOM / Bed Incorporated / 2023-05-31 / 
 41137 / 10500 / 5 / MODCLOUD / CASSINA / Fabric Sofa / LIVING ROOM / ArchieProducts / 2023-05-31 / 
+12996 / 1500 / 0 / SINK / BRAND S / Marble / BATHROOM / Sink Inc. / 2023-06-09 / 

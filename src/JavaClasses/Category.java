@@ -186,6 +186,7 @@ public class Category extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         DefaultComboBoxModel mod = new DefaultComboBoxModel(product_category.toArray());
         category.setModel(mod);
+        category.setSelectedItem(null);
     }//GEN-LAST:event_formWindowOpened
 
     private void categoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryActionPerformed

@@ -1,0 +1,1 @@
+status / name / birthday / contact number / address / product name / category / quantity / total payment / payment received / balance / change / date / 
