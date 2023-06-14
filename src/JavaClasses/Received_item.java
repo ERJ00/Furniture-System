@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +23,7 @@ import javax.swing.JOptionPane;
 public class Received_item extends javax.swing.JFrame {
 
     ArrayList<Product> item = new ArrayList<>();
+    ArrayList product_category = new ArrayList<>();
 
     public Received_item() {
         initComponents();
@@ -44,7 +46,7 @@ public class Received_item extends javax.swing.JFrame {
     
     
     private void retrieve() {
-    String filePath = "C:\\Users\\Merrell\\Desktop\\ProgLang-Project\\Java-Project\\Furniture-System\\src\\Database\\products.txt"; // Replace with the actual file path
+     String filePath = "C:\\Users\\Merrell\\Desktop\\ProgLang-Project\\Java-Project\\Furniture-System\\src\\Database\\received_product_history.txt"; // Replace with the actual file path
 
     try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
         String line;
@@ -59,6 +61,7 @@ public class Received_item extends javax.swing.JFrame {
                 temp.setBrand(arr_line[4].trim());
                 temp.setDescription(arr_line[5].trim());
                 temp.setCategory(arr_line[6].trim());
+                add_category(temp.getCategory());
                 temp.setSupplier(arr_line[7].trim());
                 temp.setDate(arr_line[8].trim());
                 add_item(temp);
@@ -110,6 +113,15 @@ public class Received_item extends javax.swing.JFrame {
         return 0;
     }
     
+        private void add_category(String PC){
+        for(Product product : item){
+            if(product.getCategory().equals(PC)){
+                return;
+            }
+        }
+        product_category.add(PC);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -141,6 +153,11 @@ public class Received_item extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Product Received");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel11.setFont(new java.awt.Font("Perpetua Titling MT", 1, 24)); // NOI18N
@@ -403,6 +420,11 @@ public class Received_item extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         Category.setEditable(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        DefaultComboBoxModel mod = new DefaultComboBoxModel(product_category.toArray());
+        Category.setModel(mod);
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
