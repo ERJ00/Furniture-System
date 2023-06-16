@@ -46,7 +46,7 @@ public class Received_item extends javax.swing.JFrame {
     
     
     private void retrieve() {
-     String filePath = "C:\\Users\\Merrell\\Desktop\\ProgLang-Project\\Java-Project\\Furniture-System\\src\\Database\\received_product_history.txt"; // Replace with the actual file path
+     String filePath = "C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\received_product_history.txt"; // Replace with the actual file path
 
     try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
         String line;
@@ -73,7 +73,7 @@ public class Received_item extends javax.swing.JFrame {
     }
     
     public void save(Product data) {
-        try (FileWriter f = new FileWriter("C:\\Users\\Merrell\\Desktop\\ProgLang-Project\\Java-Project\\Furniture-System\\src\\Database\\received_product_history.txt", true);
+        try (FileWriter f = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\received_product_history.txt", true);
                 BufferedWriter b = new BufferedWriter(f);
                 PrintWriter p = new PrintWriter(b);) {
             p.println(data.getID() + " / " + data.getPrice() + " / " + data.getQuantity() + " / " + data.getProductName() + " / " + data.getBrand() + " / " + data.getDescription() + " / " + data.getCategory() + " / " + data.getSupplier() + " / " + data.getDate() + " / ");
@@ -82,7 +82,7 @@ public class Received_item extends javax.swing.JFrame {
         }
 
         try {
-            FileWriter myWriter = new FileWriter("C:\\Users\\Merrell\\Desktop\\ProgLang-Project\\Java-Project\\Furniture-System\\src\\Database\\products.txt", false);
+            FileWriter myWriter = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\products.txt", false);
 
             for (Product product : item) {
                 myWriter.write(Integer.toString(product.getID()) + " / ");
@@ -275,7 +275,7 @@ public class Received_item extends javax.swing.JFrame {
                 CategoryActionPerformed(evt);
             }
         });
-        jPanel1.add(Category, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 170, 20));
+        jPanel1.add(Category, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 190, 30));
 
         jButton2.setBackground(new java.awt.Color(204, 204, 204));
         jButton2.setText("ADD");
@@ -409,8 +409,8 @@ public class Received_item extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void CategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CategoryActionPerformed
-    //display((String) category.getSelectedItem());
-        
+
+        //display((String) category.getSelectedItem());
     }//GEN-LAST:event_CategoryActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -424,6 +424,7 @@ public class Received_item extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         DefaultComboBoxModel mod = new DefaultComboBoxModel(product_category.toArray());
         Category.setModel(mod);
+        Category.setSelectedItem(null);
     }//GEN-LAST:event_formWindowOpened
 
     /**

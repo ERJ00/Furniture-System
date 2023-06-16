@@ -33,7 +33,7 @@ public class Received_history extends javax.swing.JFrame {
     }
 
     private void retrieve() {
-    String filePath = "C:\\Users\\Merrell\\Desktop\\ProgLang-Project\\Java-Project\\Furniture-System\\src\\Database\\received_product_history.txt"; // Replace with the actual file path
+    String filePath = "C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\received_product_history.txt"; // Replace with the actual file path
 
     try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
         String line;
