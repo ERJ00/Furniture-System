@@ -14,7 +14,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,6 +31,7 @@ public class POS extends javax.swing.JFrame {
     public POS() {
         initComponents();
         retrieve();
+        retrieveCustomerData();
     }
 
     private void add_category(String PC){
@@ -44,12 +47,9 @@ public class POS extends javax.swing.JFrame {
        item.add(data);
     }
     
-    public void add_customerData(Product data){
-        item.add(data);
-    }
     
     private void retrieve() {
-    String filePath = "C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\received_product_history.txt"; // Replace with the actual file path
+    String filePath = "C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\products.txt"; // Replace with the actual file path
 
     try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
         String line;
@@ -75,15 +75,94 @@ public class POS extends javax.swing.JFrame {
         }
     }
     
+        private void add_custo(CustomerData data){
+        buyer.add(data);
+        }
+
+    private void retrieveCustomerData() {
+    String filePath = "C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\transaction_history.txt"; // Replace with the actual file path
+
+    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        String line;
+
+        while ((line = reader.readLine()) != null) {
+            String[] arr_line = line.split(" / ");
+            CustomerData temp = new CustomerData(); // Create a new instance for each item
+            temp.setStatus(arr_line[0].trim());
+            temp.setName(arr_line[1].trim());
+            temp.setBirthday(arr_line[2].trim());
+            temp.setContactNumber(arr_line[3].trim());
+            temp.setAddress(arr_line[4].trim());
+            temp.setProductName(arr_line[5].trim());
+            temp.setCategory(arr_line[6].trim());
+
+            try {
+                temp.setQuantity(Integer.parseInt(arr_line[7].trim()));
+                temp.setTotalPayment(Integer.parseInt(arr_line[8].trim()));
+                temp.setPaymentReceived(Integer.parseInt(arr_line[9].trim()));
+                temp.setBalance(Integer.parseInt(arr_line[10].trim()));
+                temp.setChange(Integer.parseInt(arr_line[11].trim()));
+                temp.setID(Integer.parseInt(arr_line[13].trim()));
+            } catch (NumberFormatException e) {
+                // Handle the exception gracefully (e.g., log the error, skip the item, etc.)
+                System.err.println("Error parsing integer value: " + e.getMessage());
+                continue; // Skip this item and proceed to the next iteration
+            }
+
+            temp.setDate(arr_line[12].trim());
+            add_custo(temp);
+        }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void save(CustomerData data) {
-        try (FileWriter f = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\received_product_history.txt", true);
+        try (FileWriter f = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\customers_data.txt", true);
                 BufferedWriter b = new BufferedWriter(f);
                 PrintWriter p = new PrintWriter(b);) {
-            p.println(data.getStatus() + " / " + data.getName() + " / " + data.getBirthday()+ " / " + data.getContactNumber()+ " / " + data.getAddress()+ " / " + data.getProductName()+ " / " + data.getCategory() + " / " + data.getQuantity()+ " / " + data.getTotalPayment()+ " / " + data.getPaymentReceived()+ " / " + data.getBalance()+ " / " + data.getChange()+ " / " + data.getDate()+ " / ");
+            p.println(data.getStatus() + " / " + data.getName() + " / " + data.getBirthday()+ " / " + data.getContactNumber()+ " / " + data.getAddress()+ " / " + data.getProductName()+ " / " + data.getCategory() + " / " + data.getQuantity()+ " / " + data.getTotalPayment()+ " / " + data.getPaymentReceived()+ " / " + data.getBalance()+ " / " + data.getChange()+ " / " + data.getDate()+ " / " + data.getID()+ " / ");
         } catch (IOException i) {
             i.printStackTrace();
         }
+        
+        try (FileWriter f = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\transaction_history.txt", true);
+                BufferedWriter b = new BufferedWriter(f);
+                PrintWriter p = new PrintWriter(b);) {
+            p.println(data.getStatus() + " / " + data.getName() + " / " + data.getBirthday()+ " / " + data.getContactNumber()+ " / " + data.getAddress()+ " / " + data.getProductName()+ " / " + data.getCategory() + " / " + data.getQuantity()+ " / " + data.getTotalPayment()+ " / " + data.getPaymentReceived()+ " / " + data.getBalance()+ " / " + data.getChange()+ " / " + data.getDate()+ " / " + data.getID()+ " / ");
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+        
+        try {
+            FileWriter myWriter = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\products.txt", false);
+
+            for (Product product : item) {
+                myWriter.write(Integer.toString(product.getID()) + " / ");
+                myWriter.write(Integer.toString(product.getPrice()) + " / ");
+                myWriter.write(Integer.toString(product.getQuantity()) + " / ");
+                myWriter.write(product.getProductName() + " / ");
+                myWriter.write(product.getBrand() + " / ");
+                myWriter.write(product.getDescription() + " / ");
+                myWriter.write(product.getCategory() + " / ");
+                myWriter.write(product.getSupplier() + " / ");
+                myWriter.write(product.getDate() + " / \n");
+            }
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
+    
+        public boolean checkID(int id){
+            for (CustomerData customer : buyer){
+                if (customer.getID()== id){
+                    return true;
+                }
+            }
+            return false;
+        }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -118,11 +197,12 @@ public class POS extends javax.swing.JFrame {
         status = new javax.swing.JLabel();
         change = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        birthday = new com.toedter.calendar.JDateChooser();
         payment = new javax.swing.JTextField();
-        name = new javax.swing.JTextField();
+        birthday = new javax.swing.JTextField();
         contact = new javax.swing.JTextField();
         add_button = new javax.swing.JButton();
+        name = new javax.swing.JTextField();
+        jLabel32 = new javax.swing.JLabel();
         BG = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -205,7 +285,7 @@ public class POS extends javax.swing.JFrame {
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel22.setText("Birthday                         :");
+        jLabel22.setText("Birthday                        :");
         jPanel4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 230, 30));
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -299,9 +379,8 @@ public class POS extends javax.swing.JFrame {
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel31.setText("Change :");
-        jPanel4.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, 90, 30));
-        jPanel4.add(birthday, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, 180, 30));
+        jLabel31.setText("mm/dd/yyyy");
+        jPanel4.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 310, 120, 30));
 
         payment.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         payment.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -311,8 +390,8 @@ public class POS extends javax.swing.JFrame {
         });
         jPanel4.add(payment, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 200, 30));
 
-        name.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel4.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 200, 30));
+        birthday.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel4.add(birthday, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, 200, 30));
 
         contact.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel4.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 350, 200, 30));
@@ -335,6 +414,14 @@ public class POS extends javax.swing.JFrame {
             }
         });
         jPanel4.add(add_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 390, 100, 40));
+
+        name.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel4.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 200, 30));
+
+        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel32.setText("Change :");
+        jPanel4.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, 90, 30));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 720, 440));
 
@@ -423,6 +510,9 @@ public class POS extends javax.swing.JFrame {
             status.setText("");
             return;
         }
+        else if (evt.getKeyCode() >= 48 && evt.getKeyCode() <= 57){
+            return;
+        }
 
         int total = Integer.parseInt(totalText);
         int pay = Integer.parseInt(payText);
@@ -449,20 +539,64 @@ public class POS extends javax.swing.JFrame {
     }//GEN-LAST:event_add_buttonMouseExited
 
     private void add_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_buttonActionPerformed
-        category.setSelectedItem(null);
-        product_item.setSelectedItem(null);
-        unit_price.setText("0");
-        selected_quantity.setText("0");
-        product_quantity.setText("0");
-        total_payment.setText("0");
-        balance.setText("0");
-        status.setText("");
-        change.setText("0");
-        payment.setText("");
-        birthday.setCalendar(null);
-        contact.setText("");
-        address.setText("");
-        name.setText("");
+        CustomerData data = new CustomerData();
+        if (category.getSelectedItem()== null || product_item.getSelectedItem() == null || "0".equals(selected_quantity.getText())||
+                payment.getText().equals("") || name.getText().equals("") || birthday.getText().equals("")
+                 || contact.getText().equals("") || address.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Please fill up all needed data.");
+        }
+        else{
+            Random rand = new Random();
+            int ID;
+            do {
+                ID = rand.nextInt(11111, 99999);
+            } while (checkID(ID) == true);
+            data.setID(ID);
+            data.setStatus(status.getText());
+            data.setName(name.getText().toUpperCase());
+            data.setBirthday(birthday.getText());
+            data.setContactNumber(contact.getText());
+            data.setAddress(address.getText().toUpperCase());
+            data.setCategory((String) category.getSelectedItem());
+            data.setProductName((String) product_item.getSelectedItem());
+            data.setQuantity(Integer.parseInt(selected_quantity.getText()));
+            data.setTotalPayment(Integer.parseInt(total_payment.getText()));
+            data.setPaymentReceived(Integer.parseInt(payment.getText()));
+            data.setBalance(Integer.parseInt(balance.getText()));
+            data.setChange(Integer.parseInt(change.getText()));
+            data.setDate(String.valueOf(java.time.LocalDate.now()));
+            
+            for (Product product : item) {
+            if (product.getProductName()== product_item.getSelectedItem() && product.getCategory() == category.getSelectedItem()) {
+                int AQ = Integer.parseInt(product_quantity.getText());
+                int SQ = Integer.parseInt(selected_quantity.getText());
+                product.setQuantity(AQ - SQ);
+                break;
+            }
+        }
+            
+            save(data);
+            
+            category.setSelectedItem(null);
+            product_item.setSelectedItem(null);
+            unit_price.setText("0");
+            selected_quantity.setText("0");
+            product_quantity.setText("0");
+            total_payment.setText("0");
+            balance.setText("0");
+            status.setText("");
+            change.setText("0");
+            payment.setText("");
+            birthday.setText("");
+            contact.setText("");
+            address.setText("");
+            birthday.setText("");
+            name.setText("");
+            
+            Display_customer_data info = new Display_customer_data(data);
+            info.show();
+        }
+        
     }//GEN-LAST:event_add_buttonActionPerformed
 
     
@@ -507,7 +641,7 @@ public class POS extends javax.swing.JFrame {
     private javax.swing.JTextField address;
     private javax.swing.JLabel backButton;
     private javax.swing.JLabel balance;
-    private com.toedter.calendar.JDateChooser birthday;
+    private javax.swing.JTextField birthday;
     private javax.swing.JComboBox<String> category;
     private javax.swing.JLabel change;
     private javax.swing.JTextField contact;
@@ -528,6 +662,7 @@ public class POS extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField name;
     private javax.swing.JTextField payment;

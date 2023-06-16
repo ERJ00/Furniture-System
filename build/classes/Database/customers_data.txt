@@ -1,1 +1,1 @@
-status / name / birthday / contact number / address / product name / category / quantity / total payment / payment received / balance / change / date / 
+BALANCE / EMMAN / 11/11/1111 / 0123456789 / NEAR CITY / MODCLOUD / LIVING ROOM / 2 / 11000 / 1000 / 10000 / 0 / 2023-06-17 / 11289 / 

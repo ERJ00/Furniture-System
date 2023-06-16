@@ -16,6 +16,7 @@ package JavaClasses;
 //    date
 
 public class CustomerData {
+    private int id;
     private int quantity;
     private int totalPayment;
     private int paymentReceived;
@@ -37,6 +38,7 @@ public class CustomerData {
     public CustomerData(CustomerData other) {
         // Copy constructor
         
+        this.id = other.id;
         this.quantity = other.quantity;
         this.productName = other.productName;
         this.category = other.category;
@@ -54,6 +56,14 @@ public class CustomerData {
 
     // Getters and Setters
 
+    public int getID() {
+        return id;
+    }
+
+    public void setID(int id) {
+        this.id = id;
+    }
+    
     public int getQuantity() {
         return quantity;
     }

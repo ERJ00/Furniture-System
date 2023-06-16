@@ -156,7 +156,8 @@ public class Received_history extends javax.swing.JFrame {
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         if(table.isEditing() == false){
-           JOptionPane.showMessageDialog(null,"You can not edit this Table.");
+           //JOptionPane.showMessageDialog(null,"You can not edit this Table.");
+           return;
         }
     }//GEN-LAST:event_tableMouseClicked
 
