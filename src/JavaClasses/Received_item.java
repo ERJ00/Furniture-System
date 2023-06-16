@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,7 +23,8 @@ import javax.swing.JOptionPane;
 public class Received_item extends javax.swing.JFrame {
 
     ArrayList<Product> item = new ArrayList<>();
-    
+    ArrayList product_category = new ArrayList<>();
+
     public Received_item() {
         initComponents();
         retrieve();
@@ -42,8 +44,9 @@ public class Received_item extends javax.swing.JFrame {
         item.add(data);
     }
     
+    
     private void retrieve() {
-    String filePath = "C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\products.txt"; // Replace with the actual file path
+     String filePath = "C:\\Users\\Merrell\\Desktop\\ProgLang-Project\\Java-Project\\Furniture-System\\src\\Database\\received_product_history.txt"; // Replace with the actual file path
 
     try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
         String line;
@@ -58,6 +61,7 @@ public class Received_item extends javax.swing.JFrame {
                 temp.setBrand(arr_line[4].trim());
                 temp.setDescription(arr_line[5].trim());
                 temp.setCategory(arr_line[6].trim());
+                add_category(temp.getCategory());
                 temp.setSupplier(arr_line[7].trim());
                 temp.setDate(arr_line[8].trim());
                 add_item(temp);
@@ -69,7 +73,7 @@ public class Received_item extends javax.swing.JFrame {
     }
     
     public void save(Product data) {
-        try (FileWriter f = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\received_product_history.txt", true);
+        try (FileWriter f = new FileWriter("C:\\Users\\Merrell\\Desktop\\ProgLang-Project\\Java-Project\\Furniture-System\\src\\Database\\received_product_history.txt", true);
                 BufferedWriter b = new BufferedWriter(f);
                 PrintWriter p = new PrintWriter(b);) {
             p.println(data.getID() + " / " + data.getPrice() + " / " + data.getQuantity() + " / " + data.getProductName() + " / " + data.getBrand() + " / " + data.getDescription() + " / " + data.getCategory() + " / " + data.getSupplier() + " / " + data.getDate() + " / ");
@@ -78,7 +82,7 @@ public class Received_item extends javax.swing.JFrame {
         }
 
         try {
-            FileWriter myWriter = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\products.txt", false);
+            FileWriter myWriter = new FileWriter("C:\\Users\\Merrell\\Desktop\\ProgLang-Project\\Java-Project\\Furniture-System\\src\\Database\\products.txt", false);
 
             for (Product product : item) {
                 myWriter.write(Integer.toString(product.getID()) + " / ");
@@ -109,6 +113,15 @@ public class Received_item extends javax.swing.JFrame {
         return 0;
     }
     
+        private void add_category(String PC){
+        for(Product product : item){
+            if(product.getCategory().equals(PC)){
+                return;
+            }
+        }
+        product_category.add(PC);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -130,12 +143,21 @@ public class Received_item extends javax.swing.JFrame {
         txt_supplier = new javax.swing.JTextField();
         add_button = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        txt_category = new javax.swing.JTextField();
+        Category = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
         BG = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Product Received");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel11.setFont(new java.awt.Font("Perpetua Titling MT", 1, 24)); // NOI18N
@@ -243,13 +265,49 @@ public class Received_item extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("CATEGORY :");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 240, 40));
+        jLabel10.setText("ADD/EDIT CATEGORY");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, 240, 40));
 
-        txt_category.setBackground(new java.awt.Color(204, 204, 204));
-        txt_category.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_category.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(txt_category, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 240, 30));
+        Category.setBackground(new java.awt.Color(204, 204, 204));
+        Category.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BEDROOM", "LIVING ROOM", "DINING ROOM" }));
+        Category.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CategoryActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Category, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 170, 20));
+
+        jButton2.setBackground(new java.awt.Color(204, 204, 204));
+        jButton2.setText("ADD");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 290, 80, -1));
+
+        jTextField1.setBackground(new java.awt.Color(204, 204, 204));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 290, 160, -1));
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("CATEGORY :");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 250, 240, 40));
+
+        jButton3.setBackground(new java.awt.Color(204, 204, 204));
+        jButton3.setText("EDIT");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 320, 80, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 740, 400));
 
@@ -275,7 +333,8 @@ public class Received_item extends javax.swing.JFrame {
     String quantityText = txt_quantity.getText().trim();
     String description = txt_description.getText().trim();
     String supplier = txt_supplier.getText().trim();
-    String category = txt_category.getText().toUpperCase().trim();
+    String category = Category.getSelectedItem().toString().toUpperCase().trim();
+    //String category = txt_category.getText().toUpperCase().trim();
 
     if (productName.isEmpty() || brand.isEmpty() || priceText.isEmpty() || quantityText.isEmpty() ||
             description.isEmpty() || supplier.isEmpty() || category.isEmpty()) {
@@ -331,7 +390,6 @@ public class Received_item extends javax.swing.JFrame {
     txt_quantity.setText("");
     txt_description.setText("");
     txt_supplier.setText("");
-    txt_category.setText("");
     save(data);
     info.show();
         
@@ -342,6 +400,31 @@ public class Received_item extends javax.swing.JFrame {
         main.show();
         dispose();
     }//GEN-LAST:event_backButtonMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String addValue = jTextField1.getText().toUpperCase();
+        
+        //add value to combo box 
+        Category.addItem(addValue);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void CategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CategoryActionPerformed
+    //display((String) category.getSelectedItem());
+        
+    }//GEN-LAST:event_CategoryActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Category.setEditable(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        DefaultComboBoxModel mod = new DefaultComboBoxModel(product_category.toArray());
+        Category.setModel(mod);
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -380,10 +463,14 @@ public class Received_item extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BG;
+    private javax.swing.JComboBox<String> Category;
     private javax.swing.JButton add_button;
     private javax.swing.JLabel backButton;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -391,8 +478,8 @@ public class Received_item extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField txt_brand;
-    private javax.swing.JTextField txt_category;
     private javax.swing.JTextField txt_description;
     private javax.swing.JTextField txt_price;
     private javax.swing.JTextField txt_product_name;

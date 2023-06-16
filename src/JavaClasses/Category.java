@@ -33,7 +33,7 @@ public class Category extends javax.swing.JFrame {
     }
 
     private void retrieve() {
-    String filePath = "C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\received_product_history.txt"; // Replace with the actual file path
+    String filePath = "C:\\Users\\Merrell\\Desktop\\ProgLang-Project\\Java-Project\\Furniture-System\\src\\Database\\received_product_history.txt"; // Replace with the actual file path
 
     try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
         String line;
@@ -122,7 +122,7 @@ public class Category extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Perpetua Titling MT", 1, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("received history");
+        jLabel11.setText("PRODUCT CATEGORY");
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 800, 40));
 
         backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Back_button.png"))); // NOI18N
@@ -147,7 +147,6 @@ public class Category extends javax.swing.JFrame {
             }
         ));
         table.setGridColor(new java.awt.Color(0, 0, 0));
-        table.setRowHeight(20);
         table.setSelectionBackground(new java.awt.Color(102, 102, 102));
         table.setShowGrid(true);
         table.getTableHeader().setResizingAllowed(false);
