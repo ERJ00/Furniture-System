@@ -115,6 +115,7 @@ public class Customer_balance extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         birthday = new javax.swing.JTextField();
         search_button = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
         backButton = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -157,10 +158,11 @@ public class Customer_balance extends javax.swing.JFrame {
         name.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 200, 30));
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("Birthday :");
-        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, 90, 30));
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setText("MM/DD/YYYY");
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, 200, 30));
 
         birthday.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(birthday, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 200, 30));
@@ -184,7 +186,12 @@ public class Customer_balance extends javax.swing.JFrame {
         });
         jPanel1.add(search_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, 130, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 840, 50));
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setText("Birthday :");
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, 90, 30));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 840, 70));
 
         backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Back_button.png"))); // NOI18N
         backButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -241,7 +248,7 @@ public class Customer_balance extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(table);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 120, 970, 240));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 970, 240));
 
         jPanel2.setBackground(new java.awt.Color(0, 36, 66));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -355,7 +362,7 @@ public class Customer_balance extends javax.swing.JFrame {
         });
         jPanel2.add(add_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 130, 130, 50));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 970, 210));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 970, 190));
 
         BG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/BG3.jpg"))); // NOI18N
         getContentPane().add(BG, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 600));
@@ -586,6 +593,7 @@ public class Customer_balance extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
