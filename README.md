@@ -1,5 +1,7 @@
 # Furniture-System\
 
+Note: Please change the file path of all txt file in the database folder depending of where did you put the project.
+
 ![image](https://github.com/ERJ00/Furniture-System/assets/130026817/b4053ba0-b92e-4225-88ad-dcfe5beebbda)
 
 ![image](https://github.com/ERJ00/Furniture-System/assets/130026817/457f3d62-8034-4b4a-9882-47b5a79a7000)
