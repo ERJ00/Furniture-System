@@ -39,29 +39,35 @@ public class Transaction_history extends javax.swing.JFrame {
         while ((line = reader.readLine()) != null) {
             line = Encryption.decrypt(line);
             String[] arr_line = line.split(" / ");
-            CustomerData temp = new CustomerData(); // Create a new instance for each item
-            temp.setStatus(arr_line[0].trim());
-            temp.setName(arr_line[1].trim());
-            temp.setBirthday(arr_line[2].trim());
-            temp.setContactNumber(arr_line[3].trim());
-            temp.setAddress(arr_line[4].trim());
-            temp.setProductName(arr_line[5].trim());
-            temp.setCategory(arr_line[6].trim());
+            
+            if (arr_line.length < 14) {
+                System.err.println("Invalid line format: " + line);
+                continue; // Skip this line and proceed to the next iteration
+            }
 
+            CustomerData temp = new CustomerData(); // Create a new instance for each item
+            
             try {
+                temp.setStatus(arr_line[0].trim());
+                temp.setName(arr_line[1].trim());
+                temp.setBirthday(arr_line[2].trim());
+                temp.setContactNumber(arr_line[3].trim());
+                temp.setAddress(arr_line[4].trim());
+                temp.setProductName(arr_line[5].trim());
+                temp.setCategory(arr_line[6].trim());
                 temp.setQuantity(Integer.parseInt(arr_line[7].trim()));
                 temp.setTotalPayment(Integer.parseInt(arr_line[8].trim()));
                 temp.setPaymentReceived(Integer.parseInt(arr_line[9].trim()));
                 temp.setBalance(Integer.parseInt(arr_line[10].trim()));
                 temp.setChange(Integer.parseInt(arr_line[11].trim()));
+                temp.setDate(arr_line[12].trim());
                 temp.setID(Integer.parseInt(arr_line[13].trim()));
             } catch (NumberFormatException e) {
                 // Handle the exception gracefully (e.g., log the error, skip the item, etc.)
-                System.err.println("Error parsing integer value: " + e.getMessage());
+                System.err.println("Error parsing data: " + e.getMessage());
                 continue; // Skip this item and proceed to the next iteration
             }
 
-            temp.setDate(arr_line[12].trim());
             add_item(temp);
         }
     } catch (IOException e) {

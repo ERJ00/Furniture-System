@@ -36,12 +36,9 @@ public class sample {
     }
 
     public static void main(String[] args) {
-        String[] message = {"17303 / 1500 / 10 / TABLE / BRAND T / Wooden Table / DINING ROOM / Hood Inc. / 2023-05-23 / " ,
-"66611 / 1500 / 15 / BED / BRAND B / Water Bed / BEDROOM / Bed Inc. / 2023-05-31 /  " ,
-"41137 / 10500 / 5 / MODCLOUD / CASSINA / Fabric Sofa / LIVING ROOM / ArchieProducts / 2023-05-31 / " ,
-"12996 / 1500 / 0 / SINK / BRAND S / Marble / BATHROOM / Sink Inc. / 2023-06-09 / "};
+        String[] message = {"BALANCE / EMMAN / 11/11/1111 / 0123456789 / NEAR CITY / MODCLOUD / LIVING ROOM / 2 / 11000 / 1000 / 10000 / 0 / 2023-06-17 / 11289 / "};
         
-        String message2 = "4:636#2#4833#2#43#2#WDEOH#2#EUDQG#W#2#Zrrghq#Wdeoh#2#GLQLQJ#URRP#2#Krrg#Lqf1#2#5356038056#2#";
+        String message2 = "GFQFSHJslsJRRFSsls11l11l1111sls0123456789slsSJFWsHNYDslsRTIHQTZIslsQNANSLsWTTRsls2sls11000sls1000sls10000sls0sls2023-06-17sls11289sls";
         int shift = 3;
         //Encryption decode = new Encryption();
 
@@ -49,10 +46,10 @@ public class sample {
             String encryptedMessage = Encryption.encrypt(message[i]);
             System.out.println(encryptedMessage);
         
-        
-        }
 //        String decryptedMessage = Encryption.decrypt(encryptedMessage);
 //        System.out.println("Decrypted Message: " + decryptedMessage);
+        }
+        
 
         
     }
