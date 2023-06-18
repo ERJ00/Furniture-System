@@ -45,62 +45,69 @@ public class Received_item extends javax.swing.JFrame {
     }
     
     
-    private void retrieve() {
-     String filePath = "C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\received_product_history.txt"; // Replace with the actual file path
+    public void retrieve() {
+    String filePath = "C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\received_product_history.txt"; // Replace with the actual file path
 
     try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
         String line;
         Product temp = new Product(); // Create a new instance for each item
 
         while ((line = reader.readLine()) != null) {
+            line = Encryption.decrypt(line); // Uncomment this line if you want to decrypt the line
+            System.out.println(line);
             String[] arr_line = line.split(" / ");
-                temp.setID(Integer.parseInt(arr_line[0].trim()));
-                temp.setPrice(Integer.parseInt(arr_line[1].trim()));
-                temp.setQuantity(Integer.parseInt(arr_line[2].trim()));
-                temp.setProductName(arr_line[3].trim());
-                temp.setBrand(arr_line[4].trim());
-                temp.setDescription(arr_line[5].trim());
-                temp.setCategory(arr_line[6].trim());
-                add_category(temp.getCategory());
-                temp.setSupplier(arr_line[7].trim());
-                temp.setDate(arr_line[8].trim());
-                add_item(temp);
-                temp = new Product(); // Create a new instance for each item
+            for (String s : arr_line) {
+                System.out.println("Parsed value: " + s);
+            }
+            temp.setID(Integer.parseInt(arr_line[0].trim()));
+            temp.setPrice(Integer.parseInt(arr_line[1].trim()));
+            temp.setQuantity(Integer.parseInt(arr_line[2].trim()));
+            temp.setProductName(arr_line[3].trim());
+            temp.setBrand(arr_line[4].trim());
+            temp.setDescription(arr_line[5].trim());
+            temp.setCategory(arr_line[6].trim());
+            add_category(temp.getCategory());
+            temp.setSupplier(arr_line[7].trim());
+            temp.setDate(arr_line[8].trim());
+            add_item(temp);
+            temp = new Product(); // Create a new instance for each item
         }
-    }   catch (IOException e) {
+    } catch (IOException e) {
         e.printStackTrace();
-        }
     }
+}
     
     public void save(Product data) {
-        try (FileWriter f = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\received_product_history.txt", true);
-                BufferedWriter b = new BufferedWriter(f);
-                PrintWriter p = new PrintWriter(b);) {
-            p.println(data.getID() + " / " + data.getPrice() + " / " + data.getQuantity() + " / " + data.getProductName() + " / " + data.getBrand() + " / " + data.getDescription() + " / " + data.getCategory() + " / " + data.getSupplier() + " / " + data.getDate() + " / ");
-        } catch (IOException i) {
-            i.printStackTrace();
-        }
-
-        try {
-            FileWriter myWriter = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\products.txt", false);
-
-            for (Product product : item) {
-                myWriter.write(Integer.toString(product.getID()) + " / ");
-                myWriter.write(Integer.toString(product.getPrice()) + " / ");
-                myWriter.write(Integer.toString(product.getQuantity()) + " / ");
-                myWriter.write(product.getProductName() + " / ");
-                myWriter.write(product.getBrand() + " / ");
-                myWriter.write(product.getDescription() + " / ");
-                myWriter.write(product.getCategory() + " / ");
-                myWriter.write(product.getSupplier() + " / ");
-                myWriter.write(product.getDate() + " / \n");
-            }
-            myWriter.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+    try (FileWriter f = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\received_product_history.txt", true);
+         BufferedWriter b = new BufferedWriter(f);
+         PrintWriter p = new PrintWriter(b);) {
+        String encryptedLine = Encryption.encrypt(data.getID() + " / " + data.getPrice() + " / " + data.getQuantity() + " / " + data.getProductName() + " / " + data.getBrand() + " / " + data.getDescription() + " / " + data.getCategory() + " / " + data.getSupplier() + " / " + data.getDate() + " / ");
+        p.println(encryptedLine);
+    } catch (IOException i) {
+        i.printStackTrace();
     }
+
+    try {
+        FileWriter myWriter = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\products.txt", false);
+
+        for (Product product : item) {
+            myWriter.write(Encryption.encrypt(Integer.toString(product.getID()) + " / "));
+            myWriter.write(Encryption.encrypt(Integer.toString(product.getPrice()) + " / "));
+            myWriter.write(Encryption.encrypt(Integer.toString(product.getQuantity()) + " / "));
+            myWriter.write(Encryption.encrypt(product.getProductName() + " / "));
+            myWriter.write(Encryption.encrypt(product.getBrand() + " / "));
+            myWriter.write(Encryption.encrypt(product.getDescription() + " / "));
+            myWriter.write(Encryption.encrypt(product.getCategory() + " / "));
+            myWriter.write(Encryption.encrypt(product.getSupplier() + " / "));
+            myWriter.write(Encryption.encrypt(product.getDate() + " / ")+ "\n") ;
+        }
+        myWriter.close();
+    } catch (IOException e) {
+        System.out.println("An error occurred.");
+        e.printStackTrace();
+    }
+}
+
     
     private int check_product(String name, String brand, String category){
         System.out.println("name : " + name);

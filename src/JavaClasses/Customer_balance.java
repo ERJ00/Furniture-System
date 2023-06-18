@@ -44,6 +44,7 @@ public class Customer_balance extends javax.swing.JFrame {
         String line;
 
         while ((line = reader.readLine()) != null) {
+            line = Encryption.decrypt(line);
             String[] arr_line = line.split(" / ");
             CustomerData temp = new CustomerData(); // Create a new instance for each item
             temp.setStatus(arr_line[0].trim());
@@ -437,13 +438,13 @@ public class Customer_balance extends javax.swing.JFrame {
                     try (FileWriter f = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\transaction_history.txt", true);
                             BufferedWriter b = new BufferedWriter(f);
                             PrintWriter p = new PrintWriter(b);) {
-                        p.println(custoData.getStatus() + " / " + custoData.getName() + " / "
+                        p.println(Encryption.encrypt(custoData.getStatus() + " / " + custoData.getName() + " / "
                                 + custoData.getBirthday() + " / " + custoData.getContactNumber() + " / "
                                 + custoData.getAddress() + " / " + custoData.getProductName() + " / "
                                 + custoData.getCategory() + " / " + custoData.getQuantity() + " / "
                                 + custoData.getTotalPayment() + " / " + custoData.getPaymentReceived() + " / "
                                 + custoData.getBalance() + " / " + custoData.getChange() + " / "
-                                + custoData.getDate() + " / " + custoData.getID() + " / ");
+                                + custoData.getDate() + " / " + custoData.getID() + " / "));
                     } catch (IOException i) {
                         i.printStackTrace();
                     }
@@ -453,7 +454,7 @@ public class Customer_balance extends javax.swing.JFrame {
             try (FileWriter f = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\customers_data.txt", false);
                 BufferedWriter b = new BufferedWriter(f);
                 PrintWriter p = new PrintWriter(b);) {
-                    p.println(txtStatus.getText() + " / " +
+                    p.println(Encryption.encrypt(txtStatus.getText() + " / " +
                             model.getValueAt(row, 1) + " / " +
                             model.getValueAt(row, 2) + " / " +
                             model.getValueAt(row, 3) + " / " +
@@ -466,7 +467,7 @@ public class Customer_balance extends javax.swing.JFrame {
                             txtBalance.getText() + " / " +
                             txtChange.getText() + " / " +
                             String.valueOf(java.time.LocalDate.now()) + " / " +
-                            model.getValueAt(row, 13) + " / ");
+                            model.getValueAt(row, 13) + " / "));
                 } 
             catch (IOException i) {
                 i.printStackTrace();
