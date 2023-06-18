@@ -40,6 +40,7 @@ public class Category extends javax.swing.JFrame {
         Product temp = new Product(); // Create a new instance for each item
 
         while ((line = reader.readLine()) != null) {
+            line = Encryption.decrypt(line);
             String[] arr_line = line.split(" / ");
                 temp.setID(Integer.parseInt(arr_line[0].trim()));
                 temp.setPrice(Integer.parseInt(arr_line[1].trim()));

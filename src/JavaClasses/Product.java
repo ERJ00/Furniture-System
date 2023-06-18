@@ -10,6 +10,7 @@ public class Product {
     private String category;
     private String supplier;
     private String date;
+    public String key = "ERJ00";
 
     public Product() {
         // Default constructor
@@ -17,6 +18,7 @@ public class Product {
 
     public Product(Product other) {
         // Copy constructor
+        this.key = other.key;
         this.ID = other.ID;
         this.price = other.price;
         this.quantity = other.quantity;
@@ -30,6 +32,10 @@ public class Product {
 
     // Getters and Setters
 
+    public String getKey() {
+        return key;
+    }
+    
     public int getID() {
         return ID;
     }

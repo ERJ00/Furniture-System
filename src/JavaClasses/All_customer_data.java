@@ -37,6 +37,7 @@ public class All_customer_data extends javax.swing.JFrame {
         String line;
 
         while ((line = reader.readLine()) != null) {
+            line = Encryption.decrypt(line);
             String[] arr_line = line.split(" / ");
             CustomerData temp = new CustomerData(); // Create a new instance for each item
             temp.setStatus(arr_line[0].trim());

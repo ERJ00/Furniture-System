@@ -56,6 +56,7 @@ public class POS extends javax.swing.JFrame {
         Product temp = new Product(); // Create a new instance for each item
 
         while ((line = reader.readLine()) != null) {
+            line = Encryption.decrypt(line);
             String[] arr_line = line.split(" / ");
                 temp.setID(Integer.parseInt(arr_line[0].trim()));
                 temp.setPrice(Integer.parseInt(arr_line[1].trim()));
@@ -86,6 +87,7 @@ public class POS extends javax.swing.JFrame {
         String line;
 
         while ((line = reader.readLine()) != null) {
+            line = Encryption.decrypt(line);
             String[] arr_line = line.split(" / ");
             CustomerData temp = new CustomerData(); // Create a new instance for each item
             temp.setStatus(arr_line[0].trim());
@@ -121,7 +123,7 @@ public class POS extends javax.swing.JFrame {
         try (FileWriter f = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\customers_data.txt", true);
                 BufferedWriter b = new BufferedWriter(f);
                 PrintWriter p = new PrintWriter(b);) {
-            p.println(data.getStatus() + " / " + data.getName() + " / " + data.getBirthday()+ " / " + data.getContactNumber()+ " / " + data.getAddress()+ " / " + data.getProductName()+ " / " + data.getCategory() + " / " + data.getQuantity()+ " / " + data.getTotalPayment()+ " / " + data.getPaymentReceived()+ " / " + data.getBalance()+ " / " + data.getChange()+ " / " + data.getDate()+ " / " + data.getID()+ " / ");
+            p.println(Encryption.encrypt(data.getStatus() + " / " + data.getName() + " / " + data.getBirthday()+ " / " + data.getContactNumber()+ " / " + data.getAddress()+ " / " + data.getProductName()+ " / " + data.getCategory() + " / " + data.getQuantity()+ " / " + data.getTotalPayment()+ " / " + data.getPaymentReceived()+ " / " + data.getBalance()+ " / " + data.getChange()+ " / " + data.getDate()+ " / " + data.getID()+ " / "));
         } catch (IOException i) {
             i.printStackTrace();
         }
@@ -129,7 +131,7 @@ public class POS extends javax.swing.JFrame {
         try (FileWriter f = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\transaction_history.txt", true);
                 BufferedWriter b = new BufferedWriter(f);
                 PrintWriter p = new PrintWriter(b);) {
-            p.println(data.getStatus() + " / " + data.getName() + " / " + data.getBirthday()+ " / " + data.getContactNumber()+ " / " + data.getAddress()+ " / " + data.getProductName()+ " / " + data.getCategory() + " / " + data.getQuantity()+ " / " + data.getTotalPayment()+ " / " + data.getPaymentReceived()+ " / " + data.getBalance()+ " / " + data.getChange()+ " / " + data.getDate()+ " / " + data.getID()+ " / ");
+            p.println(Encryption.decrypt(data.getStatus() + " / " + data.getName() + " / " + data.getBirthday()+ " / " + data.getContactNumber()+ " / " + data.getAddress()+ " / " + data.getProductName()+ " / " + data.getCategory() + " / " + data.getQuantity()+ " / " + data.getTotalPayment()+ " / " + data.getPaymentReceived()+ " / " + data.getBalance()+ " / " + data.getChange()+ " / " + data.getDate()+ " / " + data.getID()+ " / "));
         } catch (IOException i) {
             i.printStackTrace();
         }
@@ -138,15 +140,15 @@ public class POS extends javax.swing.JFrame {
             FileWriter myWriter = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\products.txt", false);
 
             for (Product product : item) {
-                myWriter.write(Integer.toString(product.getID()) + " / ");
-                myWriter.write(Integer.toString(product.getPrice()) + " / ");
-                myWriter.write(Integer.toString(product.getQuantity()) + " / ");
-                myWriter.write(product.getProductName() + " / ");
-                myWriter.write(product.getBrand() + " / ");
-                myWriter.write(product.getDescription() + " / ");
-                myWriter.write(product.getCategory() + " / ");
-                myWriter.write(product.getSupplier() + " / ");
-                myWriter.write(product.getDate() + " / \n");
+                myWriter.write(Encryption.encrypt(Integer.toString(product.getID()) + " / "));
+                myWriter.write(Encryption.encrypt(Integer.toString(product.getPrice()) + " / "));
+                myWriter.write(Encryption.encrypt(Integer.toString(product.getQuantity()) + " / "));
+                myWriter.write(Encryption.encrypt(product.getProductName() + " / "));
+                myWriter.write(Encryption.encrypt(product.getBrand() + " / "));
+                myWriter.write(Encryption.encrypt(product.getDescription() + " / "));
+                myWriter.write(Encryption.encrypt(product.getCategory() + " / "));
+                myWriter.write(Encryption.encrypt(product.getSupplier() + " / "));
+                myWriter.write(Encryption.encrypt(product.getDate() + " / ") + "\n");
             }
             myWriter.close();
         } catch (IOException e) {
