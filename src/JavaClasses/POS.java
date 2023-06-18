@@ -131,7 +131,7 @@ public class POS extends javax.swing.JFrame {
         try (FileWriter f = new FileWriter("C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\transaction_history.txt", true);
                 BufferedWriter b = new BufferedWriter(f);
                 PrintWriter p = new PrintWriter(b);) {
-            p.println(Encryption.decrypt(data.getStatus() + " / " + data.getName() + " / " + data.getBirthday()+ " / " + data.getContactNumber()+ " / " + data.getAddress()+ " / " + data.getProductName()+ " / " + data.getCategory() + " / " + data.getQuantity()+ " / " + data.getTotalPayment()+ " / " + data.getPaymentReceived()+ " / " + data.getBalance()+ " / " + data.getChange()+ " / " + data.getDate()+ " / " + data.getID()+ " / "));
+            p.println(Encryption.encrypt(data.getStatus() + " / " + data.getName() + " / " + data.getBirthday()+ " / " + data.getContactNumber()+ " / " + data.getAddress()+ " / " + data.getProductName()+ " / " + data.getCategory() + " / " + data.getQuantity()+ " / " + data.getTotalPayment()+ " / " + data.getPaymentReceived()+ " / " + data.getBalance()+ " / " + data.getChange()+ " / " + data.getDate()+ " / " + data.getID()+ " / "));
         } catch (IOException i) {
             i.printStackTrace();
         }
