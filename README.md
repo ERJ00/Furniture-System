@@ -23,3 +23,13 @@ Note: Please change the file path of all txt file in the database folder dependi
 ![image](https://github.com/ERJ00/Furniture-System/assets/130026817/02f521db-ce9c-4e36-871c-9cd817dfd48f)
 
 ![image](https://github.com/ERJ00/Furniture-System/assets/130026817/09906ce0-5a01-4dd9-ba6a-3ec2781439e6)
+
+Encrypted txt files:
+
+![image](https://github.com/ERJ00/Furniture-System/assets/130026817/4b542a9a-7421-46f2-9d56-1207830a75b7)
+
+![image](https://github.com/ERJ00/Furniture-System/assets/130026817/f082f460-5b6f-4039-9d6c-2616d8b88164)
+
+![image](https://github.com/ERJ00/Furniture-System/assets/130026817/d0c68202-8863-44be-a7f6-068f5a7d8d18)
+
+![image](https://github.com/ERJ00/Furniture-System/assets/130026817/6d6a6d41-ec5d-4e0e-b7a2-ae7805ba94ec)
