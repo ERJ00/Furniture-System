@@ -33,13 +33,14 @@ public class Available_product extends javax.swing.JFrame {
     }
     
     private void retrieve() {
-    String filePath = "C:\\Users\\Merrell\\Desktop\\ProgLang-Project\\Java-Project\\Furniture-System\\src\\Database\\products.txt"; // Replace with the actual file path
+    String filePath = "C:\\Users\\user\\Desktop\\System Project\\Furniture-System\\src\\Database\\products.txt"; // Replace with the actual file path
 
     try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
         String line;
         Product temp = new Product(); // Create a new instance for each item
 
         while ((line = reader.readLine()) != null) {
+            line = Encryption.decrypt(line);
             String[] arr_line = line.split(" / ");
                 temp.setID(Integer.parseInt(arr_line[0].trim()));
                 temp.setPrice(Integer.parseInt(arr_line[1].trim()));
@@ -156,7 +157,9 @@ public class Available_product extends javax.swing.JFrame {
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         if(table.isEditing() == false){
-           JOptionPane.showMessageDialog(null,"You can not edit this Table.");
+          JOptionPane.showMessageDialog(null,"You can not edit this Table.");
+           return;
+           
         }
     }//GEN-LAST:event_tableMouseClicked
 
